@@ -95,10 +95,10 @@ const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
-    if (token == null) return res.sendStatus(401);
+    if (token == null) return res.sendStatus(401); // Unauthorized if no token
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
+        if (err) return res.sendStatus(403); // Forbidden if token is invalid
         req.user = user;
         next();
     });
@@ -136,8 +136,8 @@ app.post('/media', authenticateToken, (req, res) => {
 });
 
 
-// GET /media/:id/stream-url
-app.get('/media/:id/stream-url', (req, res) => {
+// GET /media/:id/stream-url (Authenticated)
+app.get('/media/:id/stream-url', authenticateToken, (req, res) => {
     try {
         const mediaId = parseInt(req.params.id, 10);
         const mediaAsset = db.mediaAssets.find(m => m.id === mediaId);
@@ -154,14 +154,6 @@ app.get('/media/:id/stream-url', (req, res) => {
         
         const secureStreamUrl = `http://localhost:${PORT}/stream/${mediaAsset.id}?token=${streamToken}`;
 
-        const viewLog = {
-            media_id: mediaAsset.id,
-            viewed_by_ip: req.ip,
-            timestamp: new Date().toISOString()
-        };
-        db.mediaViewLogs.push(viewLog);
-        console.log(`Stream URL generated for media ID ${mediaAsset.id}. View logged for IP: ${req.ip}`);
-
         res.status(200).json({ secure_url: secureStreamUrl });
 
     } catch (error) {
@@ -170,7 +162,7 @@ app.get('/media/:id/stream-url', (req, res) => {
     }
 });
 
-// GET /stream/:id (Validates temporary token)
+// GET /stream/:id (Validates temporary token, Public)
 app.get('/stream/:id', (req, res) => {
     const { token } = req.query;
     const mediaId = parseInt(req.params.id, 10);
@@ -198,6 +190,63 @@ app.get('/stream/:id', (req, res) => {
     }
 });
 
+// --- NEW ANALYTICS ENDPOINTS ---
+
+// POST /media/:id/view (Authenticated)
+app.post('/media/:id/view', authenticateToken, (req, res) => {
+    const mediaId = parseInt(req.params.id, 10);
+    const mediaAsset = db.mediaAssets.find(m => m.id === mediaId);
+
+    // Handle edge case: media not found
+    if (!mediaAsset) {
+        return res.status(404).json({ message: 'Media not found.' });
+    }
+
+    // Log the view
+    const viewLog = {
+        media_id: mediaId,
+        viewed_by_ip: req.ip,
+        timestamp: new Date().toISOString()
+    };
+    db.mediaViewLogs.push(viewLog);
+    
+    console.log(`View logged for media ID ${mediaId} from IP: ${req.ip}`);
+    res.status(200).json({ message: 'View logged successfully.' });
+});
+
+// GET /media/:id/analytics (Authenticated)
+app.get('/media/:id/analytics', authenticateToken, (req, res) => {
+    const mediaId = parseInt(req.params.id, 10);
+    const mediaAsset = db.mediaAssets.find(m => m.id === mediaId);
+
+    // Handle edge case: media not found
+    if (!mediaAsset) {
+        return res.status(404).json({ message: 'Media not found.' });
+    }
+
+    // Filter logs for the specific media ID
+    const relevantLogs = db.mediaViewLogs.filter(log => log.media_id === mediaId);
+
+    // Calculate total views
+    const total_views = relevantLogs.length;
+
+    // Calculate unique IPs
+    const unique_ips = new Set(relevantLogs.map(log => log.viewed_by_ip)).size;
+
+    // Calculate views per day
+    const views_per_day = relevantLogs.reduce((acc, log) => {
+        const day = log.timestamp.split('T')[0]; // Gets 'YYYY-MM-DD'
+        acc[day] = (acc[day] || 0) + 1;
+        return acc;
+    }, {});
+
+    res.status(200).json({
+        total_views: total_views,
+        unique_ips: unique_ips,
+        views_per_day: views_per_day
+    });
+});
+
 
 // Start Server
 app.listen(PORT, () => {
@@ -206,7 +255,9 @@ app.listen(PORT, () => {
     console.log('Available Endpoints:');
     console.log('  [POST] /auth/signup');
     console.log('  [POST] /auth/login');
-    console.log('  [POST] /media');
-    console.log('  [GET]  /media/:id/stream-url');
+    console.log('  [POST] /media (Authenticated)');
+    console.log('  [GET]  /media/:id/stream-url (Authenticated)');
+    console.log('  [POST] /media/:id/view (Authenticated)');
+    console.log('  [GET]  /media/:id/analytics (Authenticated)');
     console.log('---');
 });
