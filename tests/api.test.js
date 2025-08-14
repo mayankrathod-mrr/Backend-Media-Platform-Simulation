@@ -1,3 +1,4 @@
+// API tests for the media platform
 const request = require('supertest');
 const API_URL = 'http://localhost:3000';
 
