@@ -127,7 +127,7 @@ This was a great exercise in building a secure and practical API from scratch. Y
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
 
-TASK-2
+TASK-2   Add analytics features
 
 5. POST /media/:id/view (Authenticated)
 Logs a view for a specific media item.
@@ -163,6 +163,7 @@ JSON
         "2025-08-14": 3
     }
 }
+
 
 
 
