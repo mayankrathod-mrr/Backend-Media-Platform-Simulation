@@ -1,186 +1,70 @@
-Backend Media Platform Simulation
-This project is a backend simulation for a media platform, built with Node.js and Express.js. It fulfills a skills assessment task that required setting up a complete backend service including user authentication, protected routes, and secure, temporary media streaming links.
-
-Features Implemented
-User Authentication: Secure user signup and login using JWT (JSON Web Tokens). Passwords are encrypted using bcrypt.
-
-Protected Routes: Media creation endpoint is protected and requires a valid JWT token for access.
-
-Database Schema Design: Implemented the required database models for Admin Users, Media Assets, and Media View Logs using in-memory storage.
-
-Secure Temporary Links: A dedicated endpoint generates a secure URL for media streaming that automatically expires after 10 minutes.
-
-View Tracking: Logs the IP address and timestamp whenever a secure streaming link is generated.
-
-Technologies Used
-Node.js: JavaScript runtime environment.
-
-Express.js: Web framework for building the API.
-
-JSON Web Token (JWT): For creating secure authentication tokens.
-
-bcrypt: For hashing user passwords.
-
-Navigate to the project directory: cd TASK-1
-
-Install dependencies: npm install
-
-Start the server: node index.js
-
-The server will be running at http://localhost:3000.
-
-API Endpoints Guide
-You can test the following endpoints using a tool like Postman.
-
-1. POST /auth/signup
-Creates a new admin user.
-
-Request Body:
-
-JSON
-
-{
-    "email": "user@example.com",
-    "password": "yourpassword"
-}
-Success Response:
-
-JSON
-
-{
-    "message": "User created successfully.",
-    "userId": 1
-}
-2. POST /auth/login
-Logs in a user and returns a JWT token.
-
-Request Body:
-
-JSON
-
-{
-    "email": "user@example.com",
-    "password": "yourpassword"
-}
-Success Response:
-
-JSON
-
-{
-    "message": "Login successful.",
-    "token": "ey... (a long token string)"
-}
-3. POST /media (Authenticated)
-Adds new media metadata. Requires a Bearer Token.
-
-Headers:
-Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWRpYUlkIjoxLCJhY2Nlc3MiOiJzdHJlYW0iLCJpYXQiOjE3NTUxNzYwODUsImV4cCI6MTc1NTE3NjY4NX0.Bnv1Tyat13WS_vWgYIuCCWsZDbhTce_TcQFJY1iHp9Y>
-
-Request Body:
-
-JSON
-
-{
-    "title": "My Test Video",
-    "type": "video",
-    "file_url": "https://example.com/video.mp4"
-}
-Success Response:
-
-JSON
-
-{
-    "message": "Media added successfully.",
-    "media": {
-        "id": 1,
-        "title": "My Test Video",
-        "type": "video",
-        "file_url": "https://example.com/video.mp4",
-        "createdAt": "..."
-    }
-}
-4. GET /media/:id/stream-url
-Returns a secure, 10-minute streaming link for a media asset.
-
-Example URL: http://localhost:3000/media/1/stream-url
-
-Success Response:
-
-JSON
-
-{
-    "secure_url": "http://localhost:3000/stream/1?token=ey..."
-}
-Step 2: Upload to GitHub
-Create a new, public repository on your GitHub account.
-
-Upload your project files to this new repository:
-
-index.js
-
-package.json
-
-README.md (the file you just created)
-
-Step 3: Share on LinkedIn
-Now you can show it off!
-
-Go to your LinkedIn profile and create a new post.
-
-Write something professional and exciting. Here’s a template you can use:
-
-I'm excited to share a backend project I recently completed! It's a simulation of a media platform's backend built with Node.js and Express.
-
-I successfully implemented:
-✅ Secure user authentication with JWT and password hashing.
-✅ Protected API routes for authenticated users.
-✅ A system to generate secure, temporary (10-min) streaming links.
-
-This was a great exercise in building a secure and practical API from scratch. You can check out the full project and documentation on my GitHub!
-
-#NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
-
-TASK-2   Add analytics features
-
-5. POST /media/:id/view (Authenticated)
-Logs a view for a specific media item.
-
-Example URL: http://localhost:3000/media/1/view
-
-Headers:
-Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoibXllbWFpbEB0ZXN0LmNvbSIsImlhdCI6MTc1NTE4Mzc5NSwiZXhwIjoxNzU1MTg3Mzk1fQ.yiFYUcWW1l3NuPF9sf63Nkwj_2fGDgAZQqS_sULvCGw>
-
-Success Response:
-
-JSON
-
-{
-    "message": "View logged successfully."
-}
-6. GET /media/:id/analytics (Authenticated)
-Returns analytics data for a specific media item.
-
-Example URL: http://localhost:3000/media/1/analytics
-
-Headers:
-Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoibXllbWFpbEB0ZXN0LmNvbSIsImlhdCI6MTc1NTE4Mzc5NSwiZXhwIjoxNzU1MTg3Mzk1fQ.yiFYUcWW1l3NuPF9sf63Nkwj_2fGDgAZQqS_sULvCGw>
-
-Success Response:
-
-JSON
-
-{
-    "total_views": 3,
-    "unique_ips": 1,
-    "views_per_day": {
-        "2025-08-14": 3
-    }
-}
-
-
-
-
-
-
-
-
+# Backend Media Platform Simulation (v2)
+
+This project is a backend simulation for a media platform, built with Node.js and Express.js. It includes user authentication, protected routes, secure streaming links, analytics, caching with Redis, rate limiting, and is containerized with Docker.
+
+## Features Implemented
+
+- **User Authentication:** Secure signup/login with JWT and password hashing.
+- **Protected Routes:** All media endpoints are protected.
+- **Analytics:** Endpoint to get total views, unique viewers, and views per day.
+- **Caching:** `GET /media/:id/analytics` is cached using **Redis** to improve performance.
+- **Rate Limiting:** `POST /media/:id/view` is rate-limited to prevent abuse.
+- **Containerization:** The application is containerized using **Docker**.
+- **Automated Tests:** API tests are written using **Jest** and **Supertest**.
+- **Environment-based Config:** Configuration is managed using a `.env` file.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+)
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- A running [Redis](https://redis.io/docs/getting-started/) instance.
+
+## Setup and Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repo-url>
+    cd <repo-folder>
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Setup Environment Variables:**
+    Create a `.env` file in the root directory and copy the contents from `.env.example`.
+    ```bash
+    cp .env.example .env
+    ```
+
+4.  **Ensure Redis is running.** If using Docker, you can run Redis with:
+    ```bash
+    docker run -d -p 6379:6379 --name my-redis redis
+    ```
+
+5.  **Start the server:**
+    ```bash
+    npm start
+    ```
+    The server will be running at `http://localhost:3000`.
+
+## Running with Docker
+
+1.  **Build the Docker image:**
+    ```bash
+    docker build -t media-platform-api .
+    ```
+
+2.  **Run the Docker container:**
+    (Ensure your Redis container is running first)
+    ```bash
+    docker run -p 3000:3000 --name media-api --env-file ./.env --network host media-platform-api
+    ```
+    *Note: `--network host` is used here for simplicity to connect to Redis running on localhost. In production, you would use Docker networking.*
+
+## Running Tests
+
+To run the automated tests, use the following command:
+```bash
+npm test
