@@ -127,44 +127,6 @@ This was a great exercise in building a secure and practical API from scratch. Y
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
 
-TASK-2   Add analytics features
-
-5. POST /media/:id/view (Authenticated)
-Logs a view for a specific media item.
-
-Example URL: http://localhost:3000/media/1/view
-
-Headers:
-Authorization: Bearer <your-jwt-token>
-
-Success Response:
-
-JSON
-
-{
-    "message": "View logged successfully."
-}
-6. GET /media/:id/analytics (Authenticated)
-Returns analytics data for a specific media item.
-
-Example URL: http://localhost:3000/media/1/analytics
-
-Headers:
-Authorization: Bearer <your-jwt-token>
-
-Success Response:
-
-JSON
-
-{
-    "total_views": 3,
-    "unique_ips": 1,
-    "views_per_day": {
-        "2025-08-14": 3
-    }
-}
-
-
 
 
 
