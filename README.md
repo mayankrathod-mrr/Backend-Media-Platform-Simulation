@@ -1,4 +1,5 @@
 Backend Media Platform Simulation
+
 This project is a backend simulation for a media platform, built with Node.js and Express.js. It fulfills a skills assessment task that required setting up a complete backend service including user authentication, protected routes, and secure, temporary media streaming links.
 
 Features Implemented
@@ -125,6 +126,7 @@ I successfully implemented:
 This was a great exercise in building a secure and practical API from scratch. You can check out the full project and documentation on my GitHub!
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
+
 
 
 
