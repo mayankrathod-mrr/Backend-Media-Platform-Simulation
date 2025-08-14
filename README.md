@@ -112,25 +112,8 @@ Success Response:
 JSON
 
 {
-    "secure_url": "http://localhost:3000/stream/1?token=ey..."
+    "secure_url": "http://localhost:3000/stream/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWRpYUlkIjoxLCJhY2Nlc3MiOiJzdHJlYW0iLCJpYXQiOjE3NTUxNzYwODUsImV4cCI6MTc1NTE3NjY4NX0.Bnv1Tyat13WS_vWgYIuCCWsZDbhTce_TcQFJY1iHp9Y"
 }
-Step 2: Upload to GitHub
-Create a new, public repository on your GitHub account.
-
-Upload your project files to this new repository:
-
-index.js
-
-package.json
-
-README.md (the file you just created)
-
-Step 3: Share on LinkedIn
-Now you can show it off!
-
-Go to your LinkedIn profile and create a new post.
-
-Write something professional and exciting. Here’s a template you can use:
 
 I'm excited to share a backend project I recently completed! It's a simulation of a media platform's backend built with Node.js and Express.
 
@@ -142,6 +125,7 @@ I successfully implemented:
 This was a great exercise in building a secure and practical API from scratch. You can check out the full project and documentation on my GitHub!
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
+
 
 
 
