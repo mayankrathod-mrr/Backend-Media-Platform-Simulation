@@ -43,8 +43,8 @@ Request Body:
 JSON
 
 {
-    "email": "user@example.com",
-    "password": "yourpassword"
+    "email": "myemail@test.com",
+    "password": "password123"
 }
 Success Response:
 
@@ -62,8 +62,8 @@ Request Body:
 JSON
 
 {
-    "email": "user@example.com",
-    "password": "yourpassword"
+    "email": "myemail@test.com",
+    "password": "password123"
 }
 Success Response:
 
@@ -142,4 +142,5 @@ I successfully implemented:
 This was a great exercise in building a secure and practical API from scratch. You can check out the full project and documentation on my GitHub!
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
+
 
