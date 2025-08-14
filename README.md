@@ -22,7 +22,7 @@ JSON Web Token (JWT): For creating secure authentication tokens.
 bcrypt: For hashing user passwords.
 
 Setup and Installation
-Clone the repository: git clone <your-repo-url>
+Clone the repository: git clone <https://github.com/mayankrathod-mrr/Backend-Media-Platform-Simulation>
 
 Navigate to the project directory: cd TASK-1
 
@@ -142,5 +142,6 @@ I successfully implemented:
 This was a great exercise in building a secure and practical API from scratch. You can check out the full project and documentation on my GitHub!
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
+
 
 
