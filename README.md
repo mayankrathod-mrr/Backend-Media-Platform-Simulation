@@ -1,5 +1,4 @@
 Backend Media Platform Simulation
-
 This project is a backend simulation for a media platform, built with Node.js and Express.js. It fulfills a skills assessment task that required setting up a complete backend service including user authentication, protected routes, and secure, temporary media streaming links.
 
 Features Implemented
@@ -21,9 +20,6 @@ Express.js: Web framework for building the API.
 JSON Web Token (JWT): For creating secure authentication tokens.
 
 bcrypt: For hashing user passwords.
-
-Setup and Installation
-Clone the repository: git clone <https://github.com/mayankrathod-mrr/Backend-Media-Platform-Simulation>
 
 Navigate to the project directory: cd TASK-1
 
@@ -78,7 +74,7 @@ JSON
 Adds new media metadata. Requires a Bearer Token.
 
 Headers:
-Authorization: Bearer <your-jwt-token>
+Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWRpYUlkIjoxLCJhY2Nlc3MiOiJzdHJlYW0iLCJpYXQiOjE3NTUxNzYwODUsImV4cCI6MTc1NTE3NjY4NX0.Bnv1Tyat13WS_vWgYIuCCWsZDbhTce_TcQFJY1iHp9Y>
 
 Request Body:
 
@@ -113,8 +109,25 @@ Success Response:
 JSON
 
 {
-    "secure_url": "http://localhost:3000/stream/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZWRpYUlkIjoxLCJhY2Nlc3MiOiJzdHJlYW0iLCJpYXQiOjE3NTUxNzYwODUsImV4cCI6MTc1NTE3NjY4NX0.Bnv1Tyat13WS_vWgYIuCCWsZDbhTce_TcQFJY1iHp9Y"
+    "secure_url": "http://localhost:3000/stream/1?token=ey..."
 }
+Step 2: Upload to GitHub
+Create a new, public repository on your GitHub account.
+
+Upload your project files to this new repository:
+
+index.js
+
+package.json
+
+README.md (the file you just created)
+
+Step 3: Share on LinkedIn
+Now you can show it off!
+
+Go to your LinkedIn profile and create a new post.
+
+Write something professional and exciting. Here’s a template you can use:
 
 I'm excited to share a backend project I recently completed! It's a simulation of a media platform's backend built with Node.js and Express.
 
@@ -126,6 +139,44 @@ I successfully implemented:
 This was a great exercise in building a secure and practical API from scratch. You can check out the full project and documentation on my GitHub!
 
 #NodeJS #ExpressJS #Backend #API #Developer #JavaScript #JWT #Programming
+
+TASK-2   Add analytics features
+
+5. POST /media/:id/view (Authenticated)
+Logs a view for a specific media item.
+
+Example URL: http://localhost:3000/media/1/view
+
+Headers:
+Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoibXllbWFpbEB0ZXN0LmNvbSIsImlhdCI6MTc1NTE4Mzc5NSwiZXhwIjoxNzU1MTg3Mzk1fQ.yiFYUcWW1l3NuPF9sf63Nkwj_2fGDgAZQqS_sULvCGw>
+
+Success Response:
+
+JSON
+
+{
+    "message": "View logged successfully."
+}
+6. GET /media/:id/analytics (Authenticated)
+Returns analytics data for a specific media item.
+
+Example URL: http://localhost:3000/media/1/analytics
+
+Headers:
+Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoibXllbWFpbEB0ZXN0LmNvbSIsImlhdCI6MTc1NTE4Mzc5NSwiZXhwIjoxNzU1MTg3Mzk1fQ.yiFYUcWW1l3NuPF9sf63Nkwj_2fGDgAZQqS_sULvCGw>
+
+Success Response:
+
+JSON
+
+{
+    "total_views": 3,
+    "unique_ips": 1,
+    "views_per_day": {
+        "2025-08-14": 3
+    }
+}
+
 
 
 
